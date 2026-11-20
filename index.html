@@ -97,6 +97,9 @@
   .contrib b{color:var(--accent)}
 
   /* ---- resume + contact ---- */
+  .resume-embed{margin-top:20px;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#fff}
+  .resume-embed iframe{width:100%;height:1100px;border:0;display:block}
+  @media(max-width:700px){.resume-embed iframe{height:600px}}
   .resume-box{border:1px solid var(--line);border-radius:10px;padding:28px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
   .contact-links{display:flex;flex-direction:column;gap:10px;margin-top:8px}
   .contact-links a{color:var(--accent);text-decoration:none}
@@ -131,7 +134,7 @@
     <div class="wrap">
       <p class="eyebrow">AI for Science · Machine Learning for Simulation</p>
       <h1>Building machine-learning models that understand physics.</h1>
-      <p class="lead"><span class="ph">Intro line — who you are and the through-line of your work.</span></p>
+      <p class="lead">I'm a mechanical engineer turned machine-learning researcher at Carnegie Mellon. I build AI tools that make engineering simulation faster, cheaper, and more trustworthy.</p>
       <div class="hero-actions">
         <a href="#projects" class="btn btn-primary">View projects</a>
         <a href="#resume" class="btn btn-ghost">Resume</a>
@@ -145,14 +148,14 @@
       <div class="sec-head"><span class="num">01</span><h2>About</h2></div>
       <div class="about-grid">
         <div class="about">
-          <p><span class="ph">About Me — paragraph 1</span></p>
-          <p><span class="ph">About Me — paragraph 2</span></p>
+          <p>I started on the shop floor and in the simulation lab: I ran FEA for an electron accelerator at the Bhabha Atomic Research Centre, then led a 20-person CNC machining line for engine cylinder heads at Honda. Both jobs showed me the same bottleneck. Good engineering decisions wait on slow, expensive analysis.</p>
+          <p>Today I'm an M.S. researcher in the Mechanical and AI Lab at CMU, where I build transformer surrogates that predict airflow over cars in seconds and LLM agents that set up and check CFD simulations on their own. I'm looking for roles where I can bring ML and simulation together to help engineering teams design better products faster.</p>
         </div>
         <dl class="facts">
-          <dt>Focus</dt><dd><span class="ph">ML for CFD/PDE simulation</span></dd>
-          <dt>Affiliation</dt><dd><span class="ph">MAIL, Carnegie Mellon</span></dd>
-          <dt>Degree</dt><dd><span class="ph">MS Mechanical Eng.</span></dd>
-          <dt>Seeking</dt><dd><span class="ph">Research / PhD roles</span></dd>
+          <dt>Focus</dt><dd>ML surrogates &amp; AI agents for CFD/CAE</dd>
+          <dt>Affiliation</dt><dd>Mechanical and AI Lab, Carnegie Mellon</dd>
+          <dt>Degree</dt><dd>M.S. Mechanical Engineering, May 2027</dd>
+          <dt>Seeking</dt><dd>Full-time ML / CAE engineering roles</dd>
         </dl>
       </div>
     </div>
@@ -165,8 +168,8 @@
 
       <!-- Project 1 -->
       <article class="project">
-        <h3><span class="ph">Project 1 title</span></h3>
-        <p class="tag"><span class="ph">Role · Context · Dates · Tools</span></p>
+        <h3>CFD Forge: An AI Agent That Runs and Checks CFD Simulations</h3>
+        <p class="tag">First author · MAIL, CMU · Aug 2026–present · Python, OpenFOAM, Gmsh, Gemini API</p>
         <dl class="imrd">
           <dt>Introduction</dt><dd><span class="ph">…</span></dd>
           <dt>Method</dt><dd><span class="ph">…</span></dd>
@@ -178,8 +181,8 @@
 
       <!-- Project 2 -->
       <article class="project">
-        <h3><span class="ph">Project 2 title</span></h3>
-        <p class="tag"><span class="ph">Role · Context · Dates · Tools</span></p>
+        <h3>Transformer Surrogate for Car Aerodynamics (DrivAerML)</h3>
+        <p class="tag">Lead developer · MAIL, CMU · Feb–Jul 2026 · PyTorch, AB-UPT transformer</p>
         <dl class="imrd">
           <dt>Introduction</dt><dd><span class="ph">…</span></dd>
           <dt>Method</dt><dd><span class="ph">…</span></dd>
@@ -191,8 +194,8 @@
 
       <!-- Project 3 -->
       <article class="project">
-        <h3><span class="ph">Project 3 title</span></h3>
-        <p class="tag"><span class="ph">Role · Context · Dates · Tools</span></p>
+        <h3>LLM Agent for 2D Heat-Transfer Simulation</h3>
+        <p class="tag">Solo project · AI Agents for Engineers (24-880) · Spring 2026 · Python, Qwen2.5</p>
         <dl class="imrd">
           <dt>Introduction</dt><dd><span class="ph">…</span></dd>
           <dt>Method</dt><dd><span class="ph">…</span></dd>
@@ -204,8 +207,8 @@
 
       <!-- Project 4 -->
       <article class="project">
-        <h3><span class="ph">Project 4 title</span></h3>
-        <p class="tag"><span class="ph">Role · Context · Dates · Tools</span></p>
+        <h3>Electron-Accelerator Foil Window Design (BARC)</h3>
+        <p class="tag">Research intern · BARC, Mumbai · Jan–May 2023 · ANSYS FEA</p>
         <dl class="imrd">
           <dt>Introduction</dt><dd><span class="ph">…</span></dd>
           <dt>Method</dt><dd><span class="ph">…</span></dd>
@@ -226,7 +229,13 @@
         <div>
           <p style="font-family:var(--serif);font-size:1.15rem;margin-bottom:4px">One-page resume</p>
         </div>
-        <a href="#" class="btn btn-primary"><span class="ph">Link resume PDF →</span></a>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <a href="Aakash_Oza_Resume.pdf" target="_blank" class="btn btn-primary">Open full screen →</a>
+          <a href="Aakash_Oza_Resume.pdf" download class="btn">Download PDF</a>
+        </div>
+      </div>
+      <div class="resume-embed">
+        <iframe src="Aakash_Oza_Resume.pdf#view=FitH" title="Aakash Oza one-page resume"></iframe>
       </div>
     </div>
   </section>
@@ -235,11 +244,11 @@
   <section id="contact" style="border-bottom:none">
     <div class="wrap">
       <div class="sec-head"><span class="num">04</span><h2>Contact</h2></div>
-      <p style="max-width:52ch;margin-bottom:18px">Open to research and PhD opportunities in AI for science.</p>
+      <p style="max-width:52ch;margin-bottom:18px">Open to full-time roles in ML for engineering simulation starting May 2027.</p>
       <div class="contact-links">
         <a href="mailto:asoza@andrew.cmu.edu">asoza@andrew.cmu.edu</a>
         <a href="https://www.linkedin.com/in/aakashoza31">linkedin.com/in/aakashoza31</a>
-        <a href="#"><span class="ph">GitHub — add link</span></a>
+        <a href="https://github.com/aakashoza31" target="_blank">github.com/aakashoza31</a>
       </div>
     </div>
   </section>
