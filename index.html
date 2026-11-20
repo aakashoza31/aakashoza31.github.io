@@ -93,6 +93,9 @@
   @media(max-width:600px){.imrd{grid-template-columns:1fr;gap:2px 0}}
   .imrd dt{font-weight:600;font-size:.82rem;color:var(--ink-soft);padding-top:2px}
   .imrd dd{margin-bottom:14px;color:var(--ink)}
+  .pfig{margin:8px 0 18px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:14px}
+  .pfig svg{width:100%;height:auto;display:block}
+  .pfig figcaption{font-size:.82rem;color:var(--ink-soft);margin-top:6px;text-align:center}
   .contrib{margin-top:12px;background:var(--accent-soft);border-radius:8px;padding:14px 18px;font-size:.96rem}
   .contrib b{color:var(--accent)}
 
@@ -170,52 +173,87 @@
       <article class="project">
         <h3>CFD Forge: An AI Agent That Runs and Checks CFD Simulations</h3>
         <p class="tag">First author · MAIL, CMU · Aug 2026–present · Python, OpenFOAM, Gmsh, Gemini API</p>
+        <figure class="pfig">
+          <svg viewBox="0 0 760 170" role="img" aria-label="CFD Forge workflow: plain-language request, LLM agent sets up the case, OpenFOAM runs it, physics checks accept the result or send a bounded correction back to the agent">
+            <defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0L10,5L0,10z" fill="#5b6b7a"/></marker></defs>
+            <g font-family="Inter,Arial,sans-serif" font-size="13" text-anchor="middle">
+              <rect x="10" y="40" width="130" height="56" rx="8" fill="#eef2f6"/><text x="75" y="64">Plain-language</text><text x="75" y="82">flow request</text>
+              <rect x="200" y="40" width="130" height="56" rx="8" fill="#e3ecf7"/><text x="265" y="64">LLM agent</text><text x="265" y="82">sets up the case</text>
+              <rect x="390" y="40" width="130" height="56" rx="8" fill="#eef2f6"/><text x="455" y="64">OpenFOAM</text><text x="455" y="82">runs simulation</text>
+              <rect x="580" y="40" width="170" height="56" rx="8" fill="#fde9dc"/><text x="665" y="64" font-weight="600">Physics checks</text><text x="665" y="82">accept or reject</text>
+              <line x1="140" y1="68" x2="196" y2="68" stroke="#5b6b7a" stroke-width="2" marker-end="url(#ah)"/>
+              <line x1="330" y1="68" x2="386" y2="68" stroke="#5b6b7a" stroke-width="2" marker-end="url(#ah)"/>
+              <line x1="520" y1="68" x2="576" y2="68" stroke="#5b6b7a" stroke-width="2" marker-end="url(#ah)"/>
+              <path d="M665,96 V140 H265 V100" fill="none" stroke="#d9772f" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#ah)"/>
+              <text x="465" y="158" fill="#b4561c">rejected: diagnose and apply a bounded correction</text>
+            </g>
+          </svg>
+          <figcaption>CFD Forge workflow: the language model proposes, but only physics-based checks can accept a result.</figcaption>
+        </figure>
         <dl class="imrd">
-          <dt>Introduction</dt><dd><span class="ph">…</span></dd>
-          <dt>Method</dt><dd><span class="ph">…</span></dd>
-          <dt>Results</dt><dd><span class="ph">…</span></dd>
-          <dt>Discussion</dt><dd><span class="ph">…</span></dd>
+          <dt>Introduction</dt><dd>Engineers rely on CFD simulations to design cars and aircraft, but a wrong simulation that looks right can steer a design off course. This project's goal was an AI agent that runs CFD from a plain-language request and accepts only physically valid results.</dd>
+          <dt>Method</dt><dd>An LLM agent sets up and runs each OpenFOAM simulation. Physics-based checks then accept or reject the result, and rejected runs get a limited set of fixes before rerunning. I tested it on supersonic nozzle flow, including runs with planted faults.</dd>
+          <dt>Results</dt><dd>Nozzle results matched theory within 2%. On the planted faults, an LLM judging alone accepted 12 of 13 bad runs; CFD Forge accepted none.</dd>
+          <dt>Discussion</dt><dd>LLMs alone can't be trusted to judge scientific results, but physics checks make them reliable. This work is now a first-author preprint.</dd>
         </dl>
-        <p class="contrib"><b>My contribution:</b> <span class="ph">…</span></p>
+        <p class="contrib"><b>My contribution:</b> As first author, I built the agent, physics checks and correction loop, and ran all experiments.</p>
       </article>
 
       <!-- Project 2 -->
       <article class="project">
         <h3>Transformer Surrogate for Car Aerodynamics (DrivAerML)</h3>
-        <p class="tag">Lead developer · MAIL, CMU · Feb–Jul 2026 · PyTorch, AB-UPT transformer</p>
+        <p class="tag">Graduate researcher · MAIL, CMU · Feb–Jul 2026 · PyTorch, AB-UPT transformer</p>
+        <figure class="pfig">
+          <svg viewBox="0 0 760 120" role="img" aria-label="Surrogate workflow: the model reads a car’s shape and predicts the airflow forces on its surface.">
+            <g font-family="Inter,Arial,sans-serif" font-size="13" text-anchor="middle"><rect x="10" y="40" width="150" height="56" rx="8" fill="#eef2f6"/><text x="85" y="64">Car geometry</text><text x="85" y="82">(millions of points)</text><line x1="160" y1="68" x2="203" y2="68" stroke="#5b6b7a" stroke-width="2" marker-end="url(#ah)"/><rect x="207" y="40" width="150" height="56" rx="8" fill="#e3ecf7"/><text x="282" y="64">Data pipeline</text><text x="282" y="82">sampling + caching</text><line x1="357" y1="68" x2="399" y2="68" stroke="#5b6b7a" stroke-width="2" marker-end="url(#ah)"/><rect x="403" y="40" width="150" height="56" rx="8" fill="#eef2f6"/><text x="478" y="64">AB-UPT</text><text x="478" y="82">transformer</text><line x1="553" y1="68" x2="596" y2="68" stroke="#5b6b7a" stroke-width="2" marker-end="url(#ah)"/><rect x="600" y="40" width="150" height="56" rx="8" fill="#fde9dc"/><text x="675" y="64" font-weight="600">Predicted pressure</text><text x="675" y="82">+ wall shear</text></g>
+          </svg>
+          <figcaption>Surrogate workflow: the model reads a car’s shape and predicts the airflow forces on its surface.</figcaption>
+        </figure>
         <dl class="imrd">
-          <dt>Introduction</dt><dd><span class="ph">…</span></dd>
-          <dt>Method</dt><dd><span class="ph">…</span></dd>
-          <dt>Results</dt><dd><span class="ph">…</span></dd>
-          <dt>Discussion</dt><dd><span class="ph">…</span></dd>
+          <dt>Introduction</dt><dd>Car shape decides how much fuel or battery range is lost to air drag, but each airflow simulation takes hours to days. This project's goal was an AI surrogate that predicts airflow over a new car in seconds.</dd>
+          <dt>Method</dt><dd>I implemented an AB-UPT transformer in PyTorch and trained it on DrivAerML, a dataset of high-fidelity car simulations. Because each car mesh has millions of points, I built sampling and caching pipelines to make training practical.</dd>
+          <dt>Results</dt><dd>On unseen cars, the model predicted surface pressure with about 17% relative error, in seconds rather than hours.</dd>
+          <dt>Discussion</dt><dd>The baseline works, but accuracy drops on shapes unlike the training data. That gap led to my later research on pretraining across different flow datasets.</dd>
         </dl>
-        <p class="contrib"><b>My contribution:</b> <span class="ph">…</span></p>
+        <p class="contrib"><b>My contribution:</b> I built the full pipeline, model and evaluation myself as a graduate researcher.</p>
       </article>
 
       <!-- Project 3 -->
       <article class="project">
         <h3>LLM Agent for 2D Heat-Transfer Simulation</h3>
-        <p class="tag">Solo project · AI Agents for Engineers (24-880) · Spring 2026 · Python, Qwen2.5</p>
+        <p class="tag">Course project · AI Agents for Engineers (24-880) · Spring 2026 · Python, Qwen2.5</p>
+        <figure class="pfig">
+          <svg viewBox="0 0 760 170" role="img" aria-label="Agent loop: the agent keeps adjusting settings until it finds the best stable run.">
+            <g font-family="Inter,Arial,sans-serif" font-size="13" text-anchor="middle"><rect x="10" y="40" width="150" height="56" rx="8" fill="#eef2f6"/><text x="85" y="64">Prompt</text><text x="85" y="82">plain language</text><line x1="160" y1="68" x2="203" y2="68" stroke="#5b6b7a" stroke-width="2" marker-end="url(#ah)"/><rect x="207" y="40" width="150" height="56" rx="8" fill="#e3ecf7"/><text x="282" y="64">Agent proposes</text><text x="282" y="82">mesh + time step</text><line x1="357" y1="68" x2="399" y2="68" stroke="#5b6b7a" stroke-width="2" marker-end="url(#ah)"/><rect x="403" y="40" width="150" height="56" rx="8" fill="#eef2f6"/><text x="478" y="64">Solver runs</text><text x="478" y="82">2D heat transfer</text><line x1="553" y1="68" x2="596" y2="68" stroke="#5b6b7a" stroke-width="2" marker-end="url(#ah)"/><rect x="600" y="40" width="150" height="56" rx="8" fill="#fde9dc"/><text x="675" y="64" font-weight="600">Score</text><text x="675" y="82">stability, error, time</text><path d="M675,96 V140 H282 V100" fill="none" stroke="#d9772f" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#ah)"/><text x="478" y="158" fill="#b4561c">try new settings</text></g>
+          </svg>
+          <figcaption>Agent loop: the agent keeps adjusting settings until it finds the best stable run.</figcaption>
+        </figure>
         <dl class="imrd">
-          <dt>Introduction</dt><dd><span class="ph">…</span></dd>
-          <dt>Method</dt><dd><span class="ph">…</span></dd>
-          <dt>Results</dt><dd><span class="ph">…</span></dd>
-          <dt>Discussion</dt><dd><span class="ph">…</span></dd>
+          <dt>Introduction</dt><dd>Choosing mesh size and time step is a trial-and-error task that slows down engineers and trips up beginners. This project's goal was an AI agent that picks these settings automatically from a plain-language request.</dd>
+          <dt>Method</dt><dd>The agent uses a small language model (Qwen2.5-1.5B) in a ReAct loop. It proposes settings, runs a 2D transient heat-conduction solver, and scores each run on stability, error and runtime.</dd>
+          <dt>Results</dt><dd>From plain-language prompts, the agent produced valid setups and returned the best stable run it found, without manual tuning.</dd>
+          <dt>Discussion</dt><dd>Even a small model can automate simple numerical choices when a scoring loop checks its work. This idea of checking AI output against the solver shaped my later CFD agent research.</dd>
         </dl>
-        <p class="contrib"><b>My contribution:</b> <span class="ph">…</span></p>
+        <p class="contrib"><b>My contribution:</b> I designed and built the agent, solver interface and scoring loop, and presented the project in class.</p>
       </article>
 
       <!-- Project 4 -->
       <article class="project">
-        <h3>Electron-Accelerator Foil Window Design (BARC)</h3>
-        <p class="tag">Research intern · BARC, Mumbai · Jan–May 2023 · ANSYS FEA</p>
+        <h3>Foldable Bike Rack Carrier Design</h3>
+        <p class="tag">Team project · CAD &amp; CAE Tools, CMU · Fall 2025 · Fusion 360, FEA</p>
+        <figure class="pfig">
+          <svg viewBox="0 0 760 170" role="img" aria-label="Design process: model, test with FEA, then remove material while keeping the rack safe.">
+            <g font-family="Inter,Arial,sans-serif" font-size="13" text-anchor="middle"><rect x="10" y="40" width="150" height="56" rx="8" fill="#eef2f6"/><text x="85" y="64">Concept</text><text x="85" y="82">foldable rack</text><line x1="160" y1="68" x2="203" y2="68" stroke="#5b6b7a" stroke-width="2" marker-end="url(#ah)"/><rect x="207" y="40" width="150" height="56" rx="8" fill="#e3ecf7"/><text x="282" y="64">CAD model</text><text x="282" y="82">Fusion 360</text><line x1="357" y1="68" x2="399" y2="68" stroke="#5b6b7a" stroke-width="2" marker-end="url(#ah)"/><rect x="403" y="40" width="150" height="56" rx="8" fill="#eef2f6"/><text x="478" y="64">FEA</text><text x="478" y="82">stress + safety factor</text><line x1="553" y1="68" x2="596" y2="68" stroke="#5b6b7a" stroke-width="2" marker-end="url(#ah)"/><rect x="600" y="40" width="150" height="56" rx="8" fill="#fde9dc"/><text x="675" y="64" font-weight="600">Optimize</text><text x="675" y="82">less material, SF ≈ 3</text><path d="M675,96 V140 H282 V100" fill="none" stroke="#d9772f" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#ah)"/><text x="478" y="158" fill="#b4561c">refine design</text></g>
+          </svg>
+          <figcaption>Design process: model, test with FEA, then remove material while keeping the rack safe.</figcaption>
+        </figure>
         <dl class="imrd">
-          <dt>Introduction</dt><dd><span class="ph">…</span></dd>
-          <dt>Method</dt><dd><span class="ph">…</span></dd>
-          <dt>Results</dt><dd><span class="ph">…</span></dd>
-          <dt>Discussion</dt><dd><span class="ph">…</span></dd>
+          <dt>Introduction</dt><dd>Bulky bike racks are hard to store and add weight to a car. This project's goal was a foldable rack that stays strong while using less material.</dd>
+          <dt>Method</dt><dd>We modeled the rack in Fusion 360 and used finite-element analysis (FEA) to check stresses under load. We then refined the design to remove material where stresses were low.</dd>
+          <dt>Results</dt><dd>The final design used less material while keeping a safety factor of about 3.</dd>
+          <dt>Discussion</dt><dd>FEA let us trade weight for strength with numbers instead of guesswork. A physical prototype test would be the next step.</dd>
         </dl>
-        <p class="contrib"><b>My contribution:</b> <span class="ph">…</span></p>
+        <p class="contrib"><b>My contribution:</b> [Add your role: e.g., which parts you modeled and which analyses you ran.]</p>
       </article>
 
     </div>
