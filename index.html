@@ -3,114 +3,166 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Aakash Oza — AI for Science</title>
+<title>Aakash Oza · Scientific Machine Learning</title>
+<meta name="description" content="Aakash Oza, M.S. researcher at Carnegie Mellon working on machine learning for physics simulation: neural CFD surrogates and physics-checked AI agents.">
+<meta property="og:title" content="Aakash Oza · Scientific Machine Learning">
+<meta property="og:description" content="Machine learning for physics simulation: neural CFD surrogates and physics-checked AI agents.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%232563A8'/><text x='32' y='42' font-family='Georgia' font-size='28' fill='white' text-anchor='middle'>AO</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --paper:#FBFCFD;
-    --ink:#16202E;
-    --ink-soft:#465266;
-    --line:#DCE2EA;
-    --accent:#2563A8;      /* CFD velocity-field blue */
-    --accent-soft:#EAF1F8;
-    --serif:'Newsreader', Georgia, serif;
-    --sans:'Inter', system-ui, sans-serif;
-    --maxw:1080px;
+    --paper:#FBFCFD; --card:#FFFFFF; --ink:#16202E; --ink-soft:#4A5669; --line:#DFE5EC;
+    --accent:#2563A8; --accent-soft:#EAF1F8; --warm:#C2611F; --warm-soft:#FBEDE3;
+    --serif:'Newsreader', Georgia, serif; --sans:'Inter', system-ui, sans-serif;
+    --maxw:1080px; --r:12px;
   }
   @media (prefers-color-scheme: dark){
     :root:not([data-theme="light"]){
-      --paper:#0F141B; --ink:#EAEEF3; --ink-soft:#9AA7B8; --line:#26313F;
-      --accent:#6BA6E0; --accent-soft:#182636;
+      --paper:#0E131A; --card:#151C25; --ink:#E8EDF3; --ink-soft:#9BA8B9; --line:#25303E;
+      --accent:#6BA6E0; --accent-soft:#16263A; --warm:#E89A5E; --warm-soft:#2A1E15;
     }
   }
   :root[data-theme="dark"]{
-    --paper:#0F141B; --ink:#EAEEF3; --ink-soft:#9AA7B8; --line:#26313F;
-    --accent:#6BA6E0; --accent-soft:#182636;
+    --paper:#0E131A; --card:#151C25; --ink:#E8EDF3; --ink-soft:#9BA8B9; --line:#25303E;
+    --accent:#6BA6E0; --accent-soft:#16263A; --warm:#E89A5E; --warm-soft:#2A1E15;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth;scroll-padding-top:76px}
-  body{background:var(--paper);color:var(--ink);font-family:var(--sans);
-    font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  a{color:var(--accent)}
   .wrap{max-width:var(--maxw);margin:0 auto;padding:0 32px}
+  @media(max-width:600px){.wrap{padding:0 18px}}
 
-  /* ---- placeholder marker ---- */
-  .ph{color:var(--accent);background:var(--accent-soft);
-    border:1px dashed var(--accent);border-radius:4px;
-    padding:.05em .4em;font-size:.86em;font-family:var(--sans);
-    font-style:normal;white-space:nowrap}
-  .note{color:var(--ink-soft);font-size:.9rem;font-style:italic}
-
-  /* ---- nav ---- */
-  header.nav{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--paper) 88%,transparent);
-    backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-  .nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
-  .brand{font-family:var(--serif);font-weight:600;font-size:1.15rem;letter-spacing:-.01em;text-decoration:none;color:var(--ink)}
+  /* nav */
+  header.nav{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--paper) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px;gap:16px}
+  .brand{font-family:var(--serif);font-weight:600;font-size:1.15rem;text-decoration:none;color:var(--ink)}
   .brand span{color:var(--accent)}
-  nav ul{display:flex;gap:28px;list-style:none}
-  nav a{text-decoration:none;color:var(--ink-soft);font-size:.94rem;font-weight:500;padding:4px 0;border-bottom:2px solid transparent;transition:color .15s,border-color .15s}
+  .nav-right{display:flex;align-items:center;gap:18px}
+  nav ul{display:flex;gap:24px;list-style:none}
+  nav a{text-decoration:none;color:var(--ink-soft);font-size:.93rem;font-weight:500;padding:4px 0;border-bottom:2px solid transparent;transition:color .15s,border-color .15s}
   nav a:hover,nav a:focus{color:var(--ink);border-bottom-color:var(--accent)}
-  .menu-btn{display:none;background:none;border:1px solid var(--line);border-radius:6px;padding:6px 10px;color:var(--ink);font-size:1rem;cursor:pointer}
-  @media(max-width:720px){
+  .icon-btn{background:none;border:1px solid var(--line);border-radius:8px;padding:6px 10px;color:var(--ink);font-size:.9rem;cursor:pointer;font-family:var(--sans)}
+  .menu-btn{display:none}
+  @media(max-width:860px){
     nav ul{position:fixed;inset:64px 0 auto 0;flex-direction:column;gap:0;background:var(--paper);border-bottom:1px solid var(--line);padding:8px 0;display:none}
     nav ul.open{display:flex}
-    nav a{display:block;padding:12px 32px;border-bottom:1px solid var(--line)}
+    nav a{display:block;padding:12px 24px;border-bottom:1px solid var(--line)}
     .menu-btn{display:block}
   }
 
-  /* ---- hero ---- */
-  .hero{padding:96px 0 72px;border-bottom:1px solid var(--line)}
-  .eyebrow{font-family:var(--sans);font-size:.9rem;font-weight:600;color:var(--accent);margin-bottom:18px;letter-spacing:.02em}
-  .hero h1{font-family:var(--serif);font-weight:500;font-size:clamp(2.4rem,5vw,3.6rem);line-height:1.08;letter-spacing:-.02em;max-width:16ch;margin-bottom:24px}
-  .hero p.lead{font-size:1.2rem;color:var(--ink-soft);max-width:60ch;margin-bottom:32px}
-  .hero-actions{display:flex;gap:14px;flex-wrap:wrap}
-  .btn{display:inline-block;text-decoration:none;font-weight:500;font-size:.96rem;padding:11px 22px;border-radius:7px;transition:background .15s,color .15s,border-color .15s}
-  .btn-primary{background:var(--accent);color:#fff}
-  .btn-primary:hover{background:var(--ink)}
-  .btn-ghost{border:1px solid var(--line);color:var(--ink)}
-  .btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+  /* hero */
+  .hero{padding:84px 0 64px;border-bottom:1px solid var(--line)}
+  .hero-grid{display:grid;grid-template-columns:1fr 260px;gap:56px;align-items:center}
+  @media(max-width:820px){.hero-grid{grid-template-columns:1fr;gap:32px}.portrait{order:-1;width:180px}}
+  .eyebrow{font-size:.88rem;font-weight:600;color:var(--accent);margin-bottom:14px;letter-spacing:.02em}
+  .hero h1{font-family:var(--serif);font-weight:500;font-size:clamp(2.4rem,5vw,3.4rem);line-height:1.06;letter-spacing:-.02em;margin-bottom:10px}
+  .role{font-size:1.05rem;color:var(--ink-soft);margin-bottom:22px}
+  .hero p.lead{font-size:1.15rem;max-width:58ch;margin-bottom:24px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px}
+  .chip{font-size:.82rem;font-weight:500;padding:5px 11px;border-radius:999px;background:var(--accent-soft);color:var(--accent)}
+  .links{display:flex;gap:10px;flex-wrap:wrap}
+  .btn{display:inline-flex;align-items:center;gap:7px;text-decoration:none;font-weight:500;font-size:.94rem;padding:10px 18px;border-radius:8px;border:1px solid var(--line);color:var(--ink);background:var(--card);transition:border-color .15s,color .15s,background .15s}
+  .btn:hover{border-color:var(--accent);color:var(--accent)}
+  .btn-primary{background:var(--accent);border-color:var(--accent);color:#fff}
+  .btn-primary:hover{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+  .portrait{width:260px;aspect-ratio:1;border-radius:50%;overflow:hidden;border:1px solid var(--line);background:linear-gradient(135deg,var(--accent-soft),var(--warm-soft));display:grid;place-items:center;justify-self:center}
+  .portrait img{width:100%;height:100%;object-fit:cover;display:block}
+  .portrait .initials{font-family:var(--serif);font-size:4.2rem;color:var(--accent)}
 
-  /* ---- sections ---- */
-  section{padding:72px 0;border-bottom:1px solid var(--line)}
-  .sec-head{display:flex;align-items:baseline;gap:16px;margin-bottom:36px}
-  .sec-head .num{font-family:var(--serif);font-size:1rem;color:var(--accent)}
+  /* sections */
+  section{padding:68px 0;border-bottom:1px solid var(--line)}
+  .sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:30px}
   .sec-head h2{font-family:var(--serif);font-weight:500;font-size:2rem;letter-spacing:-.01em}
-  .about-grid{display:grid;grid-template-columns:1.6fr 1fr;gap:48px}
-  @media(max-width:720px){.about-grid{grid-template-columns:1fr;gap:32px}}
-  .about p{margin-bottom:16px;max-width:62ch;color:var(--ink)}
-  .facts{border-left:2px solid var(--accent);padding-left:20px}
-  .facts dt{font-weight:600;font-size:.82rem;color:var(--ink-soft);text-transform:none;margin-top:14px}
-  .facts dt:first-child{margin-top:0}
-  .facts dd{font-family:var(--serif);font-size:1.02rem}
+  .sec-head .sub{color:var(--ink-soft);font-size:.95rem}
 
-  /* ---- projects ---- */
-  .project{padding:32px 0;border-top:1px solid var(--line)}
-  .project:first-of-type{border-top:none;padding-top:0}
-  .project h3{font-family:var(--serif);font-weight:600;font-size:1.4rem;margin-bottom:4px}
-  .project .tag{font-size:.85rem;color:var(--accent);font-weight:500;margin-bottom:18px}
-  .imrd{display:grid;grid-template-columns:120px 1fr;gap:6px 20px;margin-top:12px}
-  @media(max-width:600px){.imrd{grid-template-columns:1fr;gap:2px 0}}
-  .imrd dt{font-weight:600;font-size:.82rem;color:var(--ink-soft);padding-top:2px}
-  .imrd dd{margin-bottom:14px;color:var(--ink)}
-  .pfig{margin:8px 0 18px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:14px}
-  .pfig svg{width:100%;height:auto;display:block}
-  .pfig figcaption{font-size:.82rem;color:var(--ink-soft);margin-top:6px;text-align:center}
-  .contrib{margin-top:12px;background:var(--accent-soft);border-radius:8px;padding:14px 18px;font-size:.96rem}
-  .contrib b{color:var(--accent)}
+  /* news */
+  .news{list-style:none;display:grid;gap:12px;max-width:820px}
+  .news li{display:grid;grid-template-columns:96px 1fr;gap:16px}
+  .news time{font-weight:600;font-size:.86rem;color:var(--accent);padding-top:2px}
+  @media(max-width:520px){.news li{grid-template-columns:1fr;gap:0}}
 
-  /* ---- resume + contact ---- */
-  .resume-embed{margin-top:20px;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#fff}
-  .resume-embed iframe{width:100%;height:1100px;border:0;display:block}
-  @media(max-width:700px){.resume-embed iframe{height:600px}}
-  .resume-box{border:1px solid var(--line);border-radius:10px;padding:28px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
-  .contact-links{display:flex;flex-direction:column;gap:10px;margin-top:8px}
-  .contact-links a{color:var(--accent);text-decoration:none}
-  .contact-links a:hover{text-decoration:underline}
-  footer{padding:40px 0;color:var(--ink-soft);font-size:.88rem}
+  /* cards / figures */
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--r)}
+  .thumb{background:#fff;border-radius:calc(var(--r) - 4px);border:1px solid var(--line);overflow:hidden;display:grid;place-items:center}
+  .thumb img{width:100%;height:100%;object-fit:contain;display:block}
+  .thumb svg{width:100%;height:auto;display:block;padding:10px}
+  .thumb .fallback{display:none;width:100%}
+  .thumb.noimg img{display:none}
+  .thumb.noimg .fallback{display:block}
+  .project .thumb.noimg{display:none}
 
+  /* publications */
+  .pubs{display:grid;gap:18px}
+  .pub{display:grid;grid-template-columns:220px 1fr;gap:24px;padding:20px}
+  .pub .thumb{aspect-ratio:4/3}
+  @media(max-width:700px){.pub{grid-template-columns:1fr}.pub .thumb{aspect-ratio:16/9}}
+  .pub h3{font-family:var(--serif);font-weight:600;font-size:1.2rem;line-height:1.3;margin-bottom:6px}
+  .authors{font-size:.94rem;color:var(--ink-soft);margin-bottom:4px}
+  .authors b{color:var(--ink)}
+  .venue{font-size:.9rem;font-style:italic;color:var(--ink-soft);margin-bottom:10px}
+  .pub p.tl{font-size:.95rem;margin-bottom:12px}
+  .plinks{display:flex;gap:8px;flex-wrap:wrap}
+  .plinks a,.plinks button{font-size:.82rem;font-weight:600;text-decoration:none;padding:4px 10px;border-radius:6px;border:1px solid var(--line);color:var(--ink);background:none;cursor:pointer;font-family:var(--sans)}
+  .plinks a:hover,.plinks button:hover{border-color:var(--accent);color:var(--accent)}
+  .badge{display:inline-block;font-size:.72rem;font-weight:600;padding:2px 8px;border-radius:999px;background:var(--warm-soft);color:var(--warm);margin-left:6px;vertical-align:middle}
+  pre.bib{display:none;margin-top:12px;background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:12px;font-size:.78rem;overflow-x:auto;white-space:pre}
+  pre.bib.show{display:block}
+
+  /* research */
+  .projects{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;align-items:start}
+  @media(max-width:820px){.projects{grid-template-columns:1fr}}
+  .project{padding:18px;display:flex;flex-direction:column}
+  .project .thumb{margin-bottom:16px}
+  .project .thumb img{height:auto;max-height:260px}
+  .project h3{font-family:var(--serif);font-weight:600;font-size:1.22rem;line-height:1.3;margin-bottom:4px}
+  .meta{font-size:.82rem;color:var(--accent);font-weight:500;margin-bottom:10px}
+  .project p.sum{font-size:.95rem;margin-bottom:12px}
+  .result{font-size:.9rem;background:var(--accent-soft);border-radius:8px;padding:10px 12px;margin-bottom:12px}
+  .result b{color:var(--accent)}
+  details{margin-top:auto;border-top:1px solid var(--line);padding-top:10px}
+  summary{cursor:pointer;font-size:.88rem;font-weight:600;color:var(--ink-soft);list-style:none}
+  summary::-webkit-details-marker{display:none}
+  summary::before{content:"+ ";color:var(--accent)}
+  details[open] summary::before{content:"− "}
+  .imrd{display:grid;grid-template-columns:100px 1fr;gap:4px 14px;margin-top:10px;font-size:.92rem}
+  .imrd dt{font-weight:600;font-size:.8rem;color:var(--ink-soft);padding-top:2px}
+  .imrd dd{margin-bottom:8px}
+  @media(max-width:520px){.imrd{grid-template-columns:1fr;gap:0}}
+  .dfig{margin:12px 0 4px}
+  .dfig img{width:100%;height:auto;display:block;border:1px solid var(--line);border-radius:8px;background:#fff}
+  .dfig figcaption{font-size:.8rem;color:var(--ink-soft);margin-top:6px}
+  .figcap{font-size:.8rem;color:var(--ink-soft);margin:-8px 0 12px}
+  .tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+  .tag{font-size:.75rem;padding:2px 8px;border-radius:6px;border:1px solid var(--line);color:var(--ink-soft)}
+
+  /* experience */
+  .timeline{list-style:none;position:relative;max-width:860px}
+  .timeline li{display:grid;grid-template-columns:150px 1fr;gap:20px;padding:0 0 26px}
+  .timeline .when{font-size:.86rem;font-weight:600;color:var(--ink-soft);padding-top:3px}
+  .timeline h3{font-family:var(--serif);font-weight:600;font-size:1.12rem;line-height:1.3}
+  .timeline .org{font-size:.92rem;color:var(--accent);margin-bottom:4px}
+  .timeline p{font-size:.94rem}
+  @media(max-width:600px){.timeline li{grid-template-columns:1fr;gap:2px}}
+  .edu{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:34px;max-width:860px}
+  @media(max-width:700px){.edu{grid-template-columns:1fr}}
+  .edu .card{padding:18px}
+  .edu h3{font-family:var(--serif);font-weight:600;font-size:1.1rem}
+  .edu p{font-size:.92rem;color:var(--ink-soft)}
+  h4.small{font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);margin:0 0 14px}
+
+  /* cv + contact */
+  .cv-box{padding:24px;display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap}
+  .cv-embed{margin-top:18px;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:#fff}
+  .cv-embed iframe{width:100%;height:1000px;border:0;display:block}
+  @media(max-width:700px){.cv-embed{display:none}}
+  .contact-links{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+  footer{padding:36px 0;color:var(--ink-soft);font-size:.86rem}
   :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:3px}
-  @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+  @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
 </style>
 </head>
 <body>
@@ -118,15 +170,20 @@
 <header class="nav">
   <div class="wrap">
     <a href="#top" class="brand">Aakash Oza<span>.</span></a>
-    <button class="menu-btn" aria-label="Toggle menu" aria-expanded="false">Menu</button>
-    <nav>
-      <ul id="menu">
-        <li><a href="#about">About</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#resume">Resume</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-    </nav>
+    <div class="nav-right">
+      <nav>
+        <ul id="menu">
+          <li><a href="#news">News</a></li>
+          <li><a href="#publications">Publications</a></li>
+          <li><a href="#research">Research</a></li>
+          <li><a href="#experience">Experience</a></li>
+          <li><a href="#cv">CV</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <button class="icon-btn" id="theme" aria-label="Toggle dark mode"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:block"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+      <button class="icon-btn menu-btn" aria-label="Toggle menu" aria-expanded="false">Menu</button>
+    </div>
   </div>
 </header>
 
@@ -134,174 +191,363 @@
 
   <!-- HERO -->
   <div class="hero">
-    <div class="wrap">
-      <p class="eyebrow">AI for Science · Machine Learning for Simulation</p>
-      <h1>Building machine-learning models that understand physics.</h1>
-      <p class="lead">I'm a mechanical engineer turned machine-learning researcher at Carnegie Mellon. I build AI tools that make engineering simulation faster, cheaper, and more trustworthy.</p>
-      <div class="hero-actions">
-        <a href="#projects" class="btn btn-primary">View projects</a>
-        <a href="#resume" class="btn btn-ghost">Resume</a>
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">AI for Science · Scientific Machine Learning</p>
+        <h1>Aakash Oza</h1>
+        <p class="role">M.S. Researcher, Mechanical and AI Lab, Carnegie Mellon University</p>
+        <p class="lead">I build machine-learning models for physics simulation: neural surrogates that predict fluid flow in seconds, and AI agents whose results are accepted only when they pass physics checks. I'm applying to PhD programs for Fall 2027 to study how scientific ML models generalize across physical systems, and how we can trust them.</p>
+        <div class="chips">
+          <span class="chip">Neural PDE surrogates</span>
+          <span class="chip">Operator learning</span>
+          <span class="chip">Cross-domain generalization</span>
+          <span class="chip">Agentic AI for simulation</span>
+          <span class="chip">Computational fluid dynamics</span>
+        </div>
+        <div class="links">
+          <a class="btn btn-primary" href="Aakash_Oza_CV.pdf" target="_blank">CV (PDF)</a>
+          <a class="btn" href="mailto:asoza@andrew.cmu.edu">Email</a>
+          <a class="btn" href="https://www.linkedin.com/in/aakashoza31" target="_blank">LinkedIn</a>
+          <a class="btn" href="https://github.com/aakashoza31" target="_blank">GitHub</a>
+        </div>
+      </div>
+      <div class="portrait">
+        <img src="img/headshot.jpg" alt="Portrait of Aakash Oza" onerror="this.remove();document.getElementById('ini').hidden=false">
+        <span class="initials" id="ini" hidden>AO</span>
       </div>
     </div>
   </div>
 
-  <!-- ABOUT -->
-  <section id="about">
+  <!-- NEWS -->
+  <section id="news">
     <div class="wrap">
-      <div class="sec-head"><span class="num">01</span><h2>About</h2></div>
-      <div class="about-grid">
-        <div class="about">
-          <p>I started on the shop floor and in the simulation lab: I ran FEA for an electron accelerator at the Bhabha Atomic Research Centre, then led a 20-person CNC machining line for engine cylinder heads at Honda. Both jobs showed me the same bottleneck. Good engineering decisions wait on slow, expensive analysis.</p>
-          <p>Today I'm an M.S. researcher in the Mechanical and AI Lab at CMU, where I build transformer surrogates that predict airflow over cars in seconds and LLM agents that set up and check CFD simulations on their own. I'm looking for roles where I can bring ML and simulation together to help engineering teams design better products faster.</p>
-        </div>
-        <dl class="facts">
-          <dt>Focus</dt><dd>ML surrogates &amp; AI agents for CFD/CAE</dd>
-          <dt>Affiliation</dt><dd>Mechanical and AI Lab, Carnegie Mellon</dd>
-          <dt>Degree</dt><dd>M.S. Mechanical Engineering, May 2027</dd>
-          <dt>Seeking</dt><dd>Full-time ML / CAE engineering roles</dd>
-        </dl>
+      <div class="sec-head"><h2>News</h2></div>
+      <ul class="news">
+        <li><time>Nov 2026</time><span><em>CFD Forge</em> was cited in <em>FoamGPT</em> (Wang et al., RPI), which highlights its use of deterministic physics checks, rather than the model, to accept simulation results.</span></li>
+        <li><time>Nov 2026</time><span>Co-authored preprint on an open library of AI agent skills for mechanical engineering is out on <a href="https://arxiv.org/abs/2611.05758" target="_blank">arXiv</a>.</span></li>
+        <li><time>Oct 2026</time><span>First-author preprint <em>CFD Forge</em>, a physics-checked LLM agent for autonomous CFD, is out on <a href="https://arxiv.org/abs/2610.14104" target="_blank">arXiv</a>.</span></li>
+        <li><time>Fall 2026</time><span>Applying to PhD programs for Fall 2027 entry.</span></li>
+        <li><time>Feb 2026</time><span>Joined the Mechanical and AI Lab (MAIL) at CMU, advised by Prof. Amir Barati Farimani.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- PUBLICATIONS -->
+  <section id="publications">
+    <div class="wrap">
+      <div class="sec-head"><h2>Publications</h2><span class="sub">Preprints</span></div>
+      <div class="pubs">
+
+        <article class="pub card">
+          <div class="thumb">
+            <img src="img/pub-cfdforge.png" alt="Real OpenFOAM results from CFD Forge runs: nozzle and Mach-2 step Mach number, turbulent cube velocity" loading="lazy">
+            <div class="fallback">
+              <svg viewBox="0 0 320 200" role="img" aria-label="CFD Forge: request, agent, solver, physics checks">
+                <g font-family="Inter,Arial,sans-serif" font-size="13" text-anchor="middle">
+                  <rect x="20" y="20" width="120" height="44" rx="8" fill="#eef2f6"/><text x="80" y="47" fill="#16202E">Request</text>
+                  <rect x="180" y="20" width="120" height="44" rx="8" fill="#e3ecf7"/><text x="240" y="47" fill="#16202E">LLM agent</text>
+                  <rect x="180" y="120" width="120" height="44" rx="8" fill="#eef2f6"/><text x="240" y="147" fill="#16202E">OpenFOAM</text>
+                  <rect x="20" y="120" width="120" height="44" rx="8" fill="#fde9dc"/><text x="80" y="147" fill="#16202E" font-weight="600">Physics checks</text>
+                  <path d="M140 42H176M240 64V116M180 142H144" stroke="#5b6b7a" stroke-width="2" fill="none"/>
+                  <path d="M80 120V68" stroke="#d9772f" stroke-width="2" stroke-dasharray="5 4" fill="none"/>
+                  <text x="160" y="190" fill="#b4561c" font-size="12">rejected → bounded correction</text>
+                </g>
+              </svg>
+            </div>
+          </div>
+          <div>
+            <h3>CFD Forge: A Physics-Constrained Agentic Framework for Autonomous CFD</h3>
+            <p class="authors"><b>A. S. Oza</b>, R. F. Johnson, A. Barati Farimani</p>
+            <p class="venue">arXiv:2610.14104, 2026 <span class="badge">First author</span></p>
+            <p class="tl">An LLM agent turns plain-language flow requests into OpenFOAM simulations, but only deterministic physics checks can accept a result. A model judging alone accepted 12 of 13 planted faults; CFD Forge's checks accepted none.</p>
+            <div class="plinks">
+              <a href="https://arxiv.org/abs/2610.14104" target="_blank">arXiv</a>
+              <a href="https://arxiv.org/pdf/2610.14104" target="_blank">PDF</a>
+              <button type="button" data-bib="bib1">BibTeX</button>
+            </div>
+            <pre class="bib" id="bib1">@article{oza2026cfdforge,
+  title   = {CFD Forge: A Physics-Constrained Agentic Framework for Autonomous CFD},
+  author  = {Oza, Aakash Shailesh and Johnson, Ryan F. and Barati Farimani, Amir},
+  journal = {arXiv preprint arXiv:2610.14104},
+  year    = {2026}
+}</pre>
+          </div>
+        </article>
+
+        <article class="pub card">
+          <div class="thumb">
+            <img src="img/pub-meskills.png" alt="Three lattice unit cells returned by the inverse-design skill" loading="lazy">
+            <div class="fallback">
+              <svg viewBox="0 0 320 200" role="img" aria-label="Engineer goal to agent to library of 33 skills">
+                <g font-family="Inter,Arial,sans-serif" font-size="13" text-anchor="middle">
+                  <rect x="20" y="78" width="90" height="44" rx="8" fill="#eef2f6"/><text x="65" y="105" fill="#16202E">Engineer</text>
+                  <rect x="130" y="78" width="70" height="44" rx="8" fill="#e3ecf7"/><text x="165" y="105" fill="#16202E">Agent</text>
+                  <g fill="#fde9dc"><rect x="225" y="24" width="76" height="30" rx="6"/><rect x="225" y="62" width="76" height="30" rx="6"/><rect x="225" y="100" width="76" height="30" rx="6"/><rect x="225" y="138" width="76" height="30" rx="6"/></g>
+                  <g fill="#16202E" font-size="11"><text x="263" y="44">Design</text><text x="263" y="82">Analysis</text><text x="263" y="120">Manufacturing</text><text x="263" y="158">…33 skills</text></g>
+                  <path d="M110 100H126M200 100H221" stroke="#5b6b7a" stroke-width="2"/>
+                </g>
+              </svg>
+            </div>
+          </div>
+          <div>
+            <h3>Mechanical Engineering Skills: An Open Library of Agent Skills for Design, Analysis and Manufacturing</h3>
+            <p class="authors">A. Chandrasekhar, J. Barkley, P. Pak, R. Loghmani, <b>A. S. Oza</b>, A. Barati Farimani</p>
+            <p class="venue">arXiv:2611.05758, 2026</p>
+            <p class="tl">An open library of 33 agent skills that lets an AI agent carry out mechanical-engineering tasks across design, analysis and manufacturing, returning results together with their checks.</p>
+            <div class="plinks">
+              <a href="https://arxiv.org/abs/2611.05758" target="_blank">arXiv</a>
+              <a href="https://arxiv.org/pdf/2611.05758" target="_blank">PDF</a>
+              <button type="button" data-bib="bib2">BibTeX</button>
+            </div>
+            <pre class="bib" id="bib2">@article{chandrasekhar2026meskills,
+  title   = {Mechanical Engineering Skills: An Open Library of Agent Skills for Design, Analysis and Manufacturing},
+  author  = {Chandrasekhar, Achuth and Barkley, Jesse and Pak, Peter and Loghmani, Rumi and Oza, Aakash and Barati Farimani, Amir},
+  journal = {arXiv preprint arXiv:2611.05758},
+  year    = {2026}
+}</pre>
+          </div>
+        </article>
+
       </div>
     </div>
   </section>
 
-  <!-- PROJECTS -->
-  <section id="projects">
+  <!-- RESEARCH -->
+  <section id="research">
     <div class="wrap">
-      <div class="sec-head"><span class="num">02</span><h2>Projects</h2></div>
+      <div class="sec-head"><h2>Research &amp; Projects</h2></div>
+      <div class="projects">
 
-      <!-- Project 1 -->
-      <article class="project" id="project-1">
-        <h3>CFD Forge: An AI Agent That Runs and Checks CFD Simulations</h3>
-        <p class="tag">First author · MAIL, CMU · Aug 2026–present · Python, OpenFOAM, Gmsh, Gemini API</p>
-        <figure class="pfig">
-          <svg viewBox="0 0 760 170" role="img" aria-label="CFD Forge workflow: plain-language request, LLM agent sets up the case, OpenFOAM runs it, physics checks accept the result or send a bounded correction back to the agent">
-            <defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0L10,5L0,10z" fill="#5b6b7a"/></marker></defs>
-            <g font-family="Inter,Arial,sans-serif" font-size="13" text-anchor="middle">
-              <rect x="10" y="40" width="130" height="56" rx="8" fill="#eef2f6"/><text x="75" y="64">Plain-language</text><text x="75" y="82">flow request</text>
-              <rect x="200" y="40" width="130" height="56" rx="8" fill="#e3ecf7"/><text x="265" y="64">LLM agent</text><text x="265" y="82">sets up the case</text>
-              <rect x="390" y="40" width="130" height="56" rx="8" fill="#eef2f6"/><text x="455" y="64">OpenFOAM</text><text x="455" y="82">runs simulation</text>
-              <rect x="580" y="40" width="170" height="56" rx="8" fill="#fde9dc"/><text x="665" y="64" font-weight="600">Physics checks</text><text x="665" y="82">accept or reject</text>
-              <line x1="140" y1="68" x2="196" y2="68" stroke="#5b6b7a" stroke-width="2" marker-end="url(#ah)"/>
-              <line x1="330" y1="68" x2="386" y2="68" stroke="#5b6b7a" stroke-width="2" marker-end="url(#ah)"/>
-              <line x1="520" y1="68" x2="576" y2="68" stroke="#5b6b7a" stroke-width="2" marker-end="url(#ah)"/>
-              <path d="M665,96 V140 H265 V100" fill="none" stroke="#d9772f" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#ah)"/>
-              <text x="465" y="158" fill="#b4561c">rejected: diagnose and apply a bounded correction</text>
-            </g>
-          </svg>
-          <figcaption>CFD Forge workflow: the language model proposes, but only physics-based checks can accept a result.</figcaption>
-        </figure>
-        <dl class="imrd">
-          <dt>Introduction</dt><dd>Engineers rely on CFD simulations to design cars and aircraft, but a wrong simulation that looks right can steer a design off course. This project's goal was an AI agent that runs CFD from a plain-language request and accepts only physically valid results.</dd>
-          <dt>Method</dt><dd>An LLM agent sets up and runs each OpenFOAM simulation. Physics-based checks then accept or reject the result, and rejected runs get a limited set of fixes before rerunning. I tested it on supersonic nozzle flow, including runs with planted faults.</dd>
-          <dt>Results</dt><dd>Nozzle results matched theory within 2%. On the planted faults, an LLM judging alone accepted 12 of 13 bad runs; CFD Forge accepted none.</dd>
-          <dt>Discussion</dt><dd>LLMs alone can't be trusted to judge scientific results, but physics checks make them reliable. This work is now a first-author preprint.</dd>
-        </dl>
-        <p class="contrib"><b>My contribution:</b> As first author, I built the agent, physics checks and correction loop, and ran all experiments.</p>
-      </article>
+        <article class="project card">
+          <div class="thumb">
+            <img src="img/cfdforge.png" alt="Nozzle results: CFD versus quasi-1D theory and gate checks" loading="lazy">
+            <div class="fallback">
+              <svg viewBox="0 0 760 170" role="img" aria-label="CFD Forge workflow">
+                <defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0L10,5L0,10z" fill="#5b6b7a"/></marker></defs>
+                <g font-family="Inter,Arial,sans-serif" font-size="14" text-anchor="middle" fill="#16202E">
+                  <rect x="10" y="40" width="150" height="56" rx="8" fill="#eef2f6"/><text x="85" y="64">Plain-language</text><text x="85" y="82">flow request</text>
+                  <rect x="200" y="40" width="150" height="56" rx="8" fill="#e3ecf7"/><text x="275" y="64">LLM agent</text><text x="275" y="82">sets up the case</text>
+                  <rect x="390" y="40" width="150" height="56" rx="8" fill="#eef2f6"/><text x="465" y="64">OpenFOAM</text><text x="465" y="82">runs simulation</text>
+                  <rect x="580" y="40" width="170" height="56" rx="8" fill="#fde9dc"/><text x="665" y="64" font-weight="600">Physics checks</text><text x="665" y="82">accept or reject</text>
+                  <line x1="160" y1="68" x2="196" y2="68" stroke="#5b6b7a" stroke-width="2" marker-end="url(#ah)"/>
+                  <line x1="350" y1="68" x2="386" y2="68" stroke="#5b6b7a" stroke-width="2" marker-end="url(#ah)"/>
+                  <line x1="540" y1="68" x2="576" y2="68" stroke="#5b6b7a" stroke-width="2" marker-end="url(#ah)"/>
+                  <path d="M665,96 V140 H275 V100" fill="none" stroke="#d9772f" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#ah)"/>
+                  <text x="470" y="160" fill="#b4561c">rejected: diagnose and apply a bounded correction</text>
+                </g>
+              </svg>
+            </div>
+          </div>
+          <p class="figcap">Supersonic nozzle: CFD matches quasi-1D theory (a, b); three physics gates failed at 1 ms and passed after the agent's approved continuation to 6 ms (c).</p>
+          <h3>CFD Forge: Physics-Checked AI Agent for CFD</h3>
+          <p class="meta">First author · MAIL, CMU · Aug 2026–present</p>
+          <div class="tags"><span class="tag">LLM agents</span><span class="tag">OpenFOAM</span><span class="tag">Gmsh</span><span class="tag">Python</span></div>
+          <p class="sum">An AI agent that runs CFD simulations from a plain-language request, where the language model proposes but only physics-based checks can accept a result.</p>
+          <p class="result"><b>Key result:</b> nozzle results matched quasi-1D theory within 2%. On planted faults, an LLM judging alone accepted 12 of 13 bad runs; CFD Forge accepted none.</p>
+          <details>
+            <summary>Details</summary>
+            <dl class="imrd">
+              <dt>Problem</dt><dd>A wrong simulation that looks right can steer an engineering design off course, and LLMs are not reliable judges of scientific results.</dd>
+              <dt>Approach</dt><dd>The agent sets up and runs each OpenFOAM case. Deterministic physics checks accept or reject it, and rejected runs get a bounded set of corrective actions before rerunning. Demonstrated on supersonic nozzle and Mach-2 forward-facing-step flows.</dd>
+              <dt>Lesson</dt><dd>Language models alone can't be trusted to judge scientific results, but grounding them in physics checks makes them reliable.</dd>
+              <dt>My role</dt><dd>Built the agent, physics checks and correction loop; ran all experiments; first author.</dd>
+            </dl>
+            <figure class="dfig"><img src="img/cfdforge-arch.png" alt="CFD Forge agent loop as implemented" loading="lazy"><figcaption>The agent loop as implemented: the language model proposes (blue), a deterministic layer decides (orange), and registered tools execute (green). Call counts are from the 19 archived sessions; the scientific validator's verdict is binding and the model cannot override it.</figcaption></figure>
+            <figure class="dfig"><img src="img/cfdforge-cube.png" alt="Turbulent cube diagnostic: velocity field, drag history, lateral force and cycle amplitude" loading="lazy"><figcaption>Turbulent cube diagnostic (outside the agent loop): drag looks settled (b) while the lateral force keeps growing cycle after cycle (c, d). A converged-looking plot is not a converged solution, so steady state is checked explicitly.</figcaption></figure>
+          </details>
+        </article>
 
-      <!-- Project 2 -->
-      <article class="project" id="project-2">
-        <h3>Transformer Surrogate for Car Aerodynamics (DrivAerML)</h3>
-        <p class="tag">Graduate researcher · MAIL, CMU · Feb–Jul 2026 · PyTorch, AB-UPT transformer</p>
-        <figure class="pfig">
-          <svg viewBox="0 0 760 120" role="img" aria-label="Surrogate workflow: the model reads a car’s shape and predicts the airflow forces on its surface.">
-            <g font-family="Inter,Arial,sans-serif" font-size="13" text-anchor="middle"><rect x="10" y="40" width="150" height="56" rx="8" fill="#eef2f6"/><text x="85" y="64">Car geometry</text><text x="85" y="82">(millions of points)</text><line x1="160" y1="68" x2="203" y2="68" stroke="#5b6b7a" stroke-width="2" marker-end="url(#ah)"/><rect x="207" y="40" width="150" height="56" rx="8" fill="#e3ecf7"/><text x="282" y="64">Data pipeline</text><text x="282" y="82">sampling + caching</text><line x1="357" y1="68" x2="399" y2="68" stroke="#5b6b7a" stroke-width="2" marker-end="url(#ah)"/><rect x="403" y="40" width="150" height="56" rx="8" fill="#eef2f6"/><text x="478" y="64">AB-UPT</text><text x="478" y="82">transformer</text><line x1="553" y1="68" x2="596" y2="68" stroke="#5b6b7a" stroke-width="2" marker-end="url(#ah)"/><rect x="600" y="40" width="150" height="56" rx="8" fill="#fde9dc"/><text x="675" y="64" font-weight="600">Predicted pressure</text><text x="675" y="82">+ wall shear</text></g>
-          </svg>
-          <figcaption>Surrogate workflow: the model reads a car’s shape and predicts the airflow forces on its surface.</figcaption>
-        </figure>
-        <dl class="imrd">
-          <dt>Introduction</dt><dd>Car shape decides how much fuel or battery range is lost to air drag, but each airflow simulation takes hours to days. This project's goal was an AI surrogate that predicts airflow over a new car in seconds.</dd>
-          <dt>Method</dt><dd>I implemented an AB-UPT transformer in PyTorch and trained it on DrivAerML, a dataset of high-fidelity car simulations. Because each car mesh has millions of points, I built sampling and caching pipelines to make training practical.</dd>
-          <dt>Results</dt><dd>On unseen cars, the model predicted surface pressure with about 17% relative error, in seconds rather than hours.</dd>
-          <dt>Discussion</dt><dd>The baseline works, but accuracy drops on shapes unlike the training data. That gap led to my later research on pretraining across different flow datasets.</dd>
-        </dl>
-        <p class="contrib"><b>My contribution:</b> I built the full pipeline, model and evaluation myself as a graduate researcher.</p>
-      </article>
+        <article class="project card">
+          <div class="thumb">
+            <img src="img/crossdomain-car.png" alt="Surface pressure on an unseen car: ground truth, pretrained model, and model trained from scratch" loading="lazy">
+            <div class="fallback"></div>
+          </div>
+          <p class="figcap">Unseen car, both models fine-tuned on the same 3 cars: the pretrained model recovers the windscreen suction peak the from-scratch model misses (38% vs 53% error).</p>
+          <h3>Cross-Domain Pretraining for Few-Shot CFD Surrogates</h3>
+          <p class="meta">MAIL, CMU · Aug–Oct 2026 · Manuscript in preparation</p>
+          <div class="tags"><span class="tag">PyTorch</span><span class="tag">AB-UPT transformer (75M)</span><span class="tag">OpenFOAM · SU2 · Fluent data</span></div>
+          <p class="sum">High-fidelity CFD is expensive, so most design problems have only a handful of simulations. I pretrained a transformer surrogate on about 1,000 non-car simulations from different solvers and flow types, then fine-tuned it on just 3 to 15 cars.</p>
+          <p class="result"><b>Key result:</b> up to 40% lower error on unseen cars than a fully tuned from-scratch model; 3 pretrained cars beat 5 cars from scratch.</p>
+          <details>
+            <summary>Details</summary>
+            <dl class="imrd">
+              <dt>Problem</dt><dd>Neural CFD surrogates need many expensive simulations, and most engineering problems don't have them.</dd>
+              <dt>Approach</dt><dd>Unified data from different solvers and outputs (field-ID tokens, inflow-based nondimensionalization) so incompressible bluff bodies and compressible delta wings could be pretrained together, then fine-tuned on DrivAerML cars.</dd>
+              <dt>Lesson</dt><dd>Relevance matters more than volume: related flows helped, while a mismatched submarine-wake dataset made predictions worse.</dd>
+              <dt>My role</dt><dd>Built the pipeline and ran all experiments and analysis, developing the idea with my lab mentor.</dd>
+            </dl>
+            <figure class="dfig"><img src="img/crossdomain-pipeline.png" alt="Cross-domain pretraining pipeline: source datasets, data unification, shared transformer backbone, few-shot fine-tuning" loading="lazy"><figcaption>Pipeline: three solvers and geometry families (AhmedML/OpenFOAM, Double-Delta/SU2, WAKESET/Fluent) are put into one format (Cp, Cf, U/U∞ plus a field tag), learned by one AB-UPT-based transformer (75M parameters) that predicts surface and volume fields, then fine-tuned on 3–15 unseen cars.</figcaption></figure>
+            <figure class="dfig"><img src="img/crossdomain-fewshot.png" alt="Prediction error versus number of training cars, pretrained versus from scratch" loading="lazy"><figcaption>Error on unseen cars vs. number of training cars: pretraining cuts error by 40% / 28% / 29% / 15% at 3 / 5 / 10 / 15 cars.</figcaption></figure>
+          </details>
+        </article>
 
-      <!-- Project 3 -->
-      <article class="project" id="project-3">
-        <h3>LLM Agent for 2D Heat-Transfer Simulation</h3>
-        <p class="tag">Course project · AI Agents for Engineers (24-880) · Spring 2026 · Python, Qwen2.5</p>
-        <figure class="pfig">
-          <svg viewBox="0 0 760 170" role="img" aria-label="Agent loop: the agent keeps adjusting settings until it finds the best stable run.">
-            <g font-family="Inter,Arial,sans-serif" font-size="13" text-anchor="middle"><rect x="10" y="40" width="150" height="56" rx="8" fill="#eef2f6"/><text x="85" y="64">Prompt</text><text x="85" y="82">plain language</text><line x1="160" y1="68" x2="203" y2="68" stroke="#5b6b7a" stroke-width="2" marker-end="url(#ah)"/><rect x="207" y="40" width="150" height="56" rx="8" fill="#e3ecf7"/><text x="282" y="64">Agent proposes</text><text x="282" y="82">mesh + time step</text><line x1="357" y1="68" x2="399" y2="68" stroke="#5b6b7a" stroke-width="2" marker-end="url(#ah)"/><rect x="403" y="40" width="150" height="56" rx="8" fill="#eef2f6"/><text x="478" y="64">Solver runs</text><text x="478" y="82">2D heat transfer</text><line x1="553" y1="68" x2="596" y2="68" stroke="#5b6b7a" stroke-width="2" marker-end="url(#ah)"/><rect x="600" y="40" width="150" height="56" rx="8" fill="#fde9dc"/><text x="675" y="64" font-weight="600">Score</text><text x="675" y="82">stability, error, time</text><path d="M675,96 V140 H282 V100" fill="none" stroke="#d9772f" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#ah)"/><text x="478" y="158" fill="#b4561c">try new settings</text></g>
-          </svg>
-          <figcaption>Agent loop: the agent keeps adjusting settings until it finds the best stable run.</figcaption>
-        </figure>
-        <dl class="imrd">
-          <dt>Introduction</dt><dd>Choosing mesh size and time step is a trial-and-error task that slows down engineers and trips up beginners. This project's goal was an AI agent that picks these settings automatically from a plain-language request.</dd>
-          <dt>Method</dt><dd>The agent uses a small language model (Qwen2.5-1.5B) in a ReAct loop. It proposes settings, runs a 2D transient heat-conduction solver, and scores each run on stability, error and runtime.</dd>
-          <dt>Results</dt><dd>From plain-language prompts, the agent produced valid setups and returned the best stable run it found, without manual tuning.</dd>
-          <dt>Discussion</dt><dd>Even a small model can automate simple numerical choices when a scoring loop checks its work. This idea of checking AI output against the solver shaped my later CFD agent research.</dd>
-        </dl>
-        <p class="contrib"><b>My contribution:</b> I designed and built the agent, solver interface and scoring loop, and presented the project in class.</p>
-      </article>
+        <article class="project card">
+          <div class="thumb">
+            <img src="img/latentmap-pca.png" alt="Learned latent map with one dot per simulation; unseen cars sit near the helpful datasets" loading="lazy">
+            <div class="fallback"></div>
+          </div>
+          <p class="figcap">Each dot is one simulation compressed to 32 numbers. Unseen cars sit near AhmedML and Double-Delta (which helped transfer) and far from WAKESET (which hurt).</p>
+          <h3>A Learned Map for Choosing Training Data</h3>
+          <p class="meta">MAIL, CMU · 2026 · Ongoing</p>
+          <div class="tags"><span class="tag">Encoder–decoder</span><span class="tag">Dataset embeddings</span><span class="tag">Data selection</span></div>
+          <p class="sum">Can we tell which simulations will help before paying to run them? An encoder–decoder compresses each simulation into a 32-number fingerprint, and distances between fingerprints are compared with measured transfer.</p>
+          <p class="result"><b>Key result:</b> the trained encoder ranks the harmful dataset (WAKESET) farthest from the cars across 5 seeds, matching measured transfer; an untrained copy of the same network does not.</p>
+          <details>
+            <summary>Details</summary>
+            <dl class="imrd">
+              <dt>Problem</dt><dd>Each high-fidelity simulation costs hours, so choosing which ones to run is itself a learning problem.</dd>
+              <dt>Approach</dt><dd>Train one encoder–decoder on all datasets, keep the target cars out of training, and measure distances in the learned 32-D space.</dd>
+              <dt>Next</dt><dd>Use these distances to decide which simulations to run before running them.</dd>
+            </dl>
+            <figure class="dfig"><img src="img/latentmap-method.png" alt="Learned dataset map method: encoder, 32-D fingerprint, decoder, distance comparison" loading="lazy"><figcaption>Method: an encoder–decoder compresses each simulation into a 32-D fingerprint; distances to the target cars (embedded, never trained on) are compared with measured transfer.</figcaption></figure>
+            <figure class="dfig"><img src="img/latentmap-distances.png" alt="Distance from the cars in latent space for each dataset, trained versus untrained encoder" loading="lazy"><figcaption>Distance from the cars in latent space (mean of 5 seeds). Trained encoder ranks WAKESET farthest; untrained does not.</figcaption></figure>
+          </details>
+        </article>
 
-      <!-- Project 4 -->
-      <article class="project" id="project-4">
-        <h3>Foldable Bike Rack Carrier Design</h3>
-        <p class="tag">Team project · CAD &amp; CAE Tools, CMU · Fall 2025 · Fusion 360, FEA</p>
-        <figure class="pfig">
-          <svg viewBox="0 0 760 170" role="img" aria-label="Design process: model, test with FEA, then remove material while keeping the rack safe.">
-            <g font-family="Inter,Arial,sans-serif" font-size="13" text-anchor="middle"><rect x="10" y="40" width="150" height="56" rx="8" fill="#eef2f6"/><text x="85" y="64">Concept</text><text x="85" y="82">foldable rack</text><line x1="160" y1="68" x2="203" y2="68" stroke="#5b6b7a" stroke-width="2" marker-end="url(#ah)"/><rect x="207" y="40" width="150" height="56" rx="8" fill="#e3ecf7"/><text x="282" y="64">CAD model</text><text x="282" y="82">Fusion 360</text><line x1="357" y1="68" x2="399" y2="68" stroke="#5b6b7a" stroke-width="2" marker-end="url(#ah)"/><rect x="403" y="40" width="150" height="56" rx="8" fill="#eef2f6"/><text x="478" y="64">FEA</text><text x="478" y="82">stress + safety factor</text><line x1="553" y1="68" x2="596" y2="68" stroke="#5b6b7a" stroke-width="2" marker-end="url(#ah)"/><rect x="600" y="40" width="150" height="56" rx="8" fill="#fde9dc"/><text x="675" y="64" font-weight="600">Optimize</text><text x="675" y="82">less material, SF ≈ 3</text><path d="M675,96 V140 H282 V100" fill="none" stroke="#d9772f" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#ah)"/><text x="478" y="158" fill="#b4561c">refine design</text></g>
-          </svg>
-          <figcaption>Design process: model, test with FEA, then remove material while keeping the rack safe.</figcaption>
-        </figure>
-        <dl class="imrd">
-          <dt>Introduction</dt><dd>Bulky bike racks are hard to store and add weight to a car. This project's goal was a foldable rack that stays strong while using less material.</dd>
-          <dt>Method</dt><dd>We modeled the rack in Fusion 360 and used finite-element analysis (FEA) to check stresses under load. We then refined the design to remove material where stresses were low.</dd>
-          <dt>Results</dt><dd>The final design used less material while keeping a safety factor of about 3.</dd>
-          <dt>Discussion</dt><dd>FEA let us trade weight for strength with numbers instead of guesswork. A physical prototype test would be the next step.</dd>
-        </dl>
-        <p class="contrib"><b>My contribution:</b> I modeled the hitch-mount assembly in Fusion 360, the part that attaches the rack to the car's hitch.</p>
-      </article>
+        <article class="project card">
+          <div class="thumb">
+            <img src="img/drivaer.png" alt="True versus predicted wall shear stress on a held-out car" loading="lazy">
+            <div class="fallback"></div>
+          </div>
+          <p class="figcap">Held-out car: true (left) vs. predicted (right) wall shear stress (x-component).</p>
+          <div hidden>
+            <div class="fallback">
+              <svg viewBox="0 0 760 130" role="img" aria-label="Surrogate workflow">
+                <g font-family="Inter,Arial,sans-serif" font-size="14" text-anchor="middle" fill="#16202E"><rect x="10" y="40" width="150" height="56" rx="8" fill="#eef2f6"/><text x="85" y="64">Car geometry</text><text x="85" y="82">(millions of points)</text><line x1="160" y1="68" x2="203" y2="68" stroke="#5b6b7a" stroke-width="2" marker-end="url(#ah)"/><rect x="207" y="40" width="150" height="56" rx="8" fill="#e3ecf7"/><text x="282" y="64">Data pipeline</text><text x="282" y="82">sampling + caching</text><line x1="357" y1="68" x2="399" y2="68" stroke="#5b6b7a" stroke-width="2" marker-end="url(#ah)"/><rect x="403" y="40" width="150" height="56" rx="8" fill="#eef2f6"/><text x="478" y="64">AB-UPT</text><text x="478" y="82">transformer</text><line x1="553" y1="68" x2="596" y2="68" stroke="#5b6b7a" stroke-width="2" marker-end="url(#ah)"/><rect x="600" y="40" width="150" height="56" rx="8" fill="#fde9dc"/><text x="675" y="64" font-weight="600">Pressure +</text><text x="675" y="82">wall shear</text></g>
+              </svg>
+            </div>
+          </div>
+          <h3>Transformer Surrogate for Car Aerodynamics</h3>
+          <p class="meta">Graduate researcher · MAIL, CMU · Feb–Jul 2026</p>
+          <div class="tags"><span class="tag">PyTorch</span><span class="tag">AB-UPT transformer</span><span class="tag">DrivAerML</span></div>
+          <p class="sum">A neural surrogate that reads a car's shape and predicts surface pressure and wall shear in seconds instead of hours of CFD.</p>
+          <p class="result"><b>Key result:</b> about 17% relative error on surface pressure for unseen cars, in seconds.</p>
+          <details>
+            <summary>Details</summary>
+            <dl class="imrd">
+              <dt>Problem</dt><dd>Each high-fidelity airflow simulation of a car takes hours to days, which slows design iteration.</dd>
+              <dt>Approach</dt><dd>Implemented an AB-UPT transformer in PyTorch, trained on DrivAerML. Built point-sampling and caching pipelines to make million-point meshes trainable.</dd>
+              <dt>Lesson</dt><dd>Accuracy drops on shapes unlike the training data. That gap motivated my research on pretraining across different flow datasets.</dd>
+              <dt>My role</dt><dd>Built the full pipeline, model and evaluation.</dd>
+            </dl>
+            <figure class="dfig"><img src="img/drivaer-pipeline.png" alt="DrivAerML research loop: baseline, diagnosis, refinement" loading="lazy"><figcaption>Research loop: a surface-only baseline exposed weak multi-field accuracy and slow data loading, which led to cached data, simplified targets, and fixes to geometry pooling, RoPE handling and block order.</figcaption></figure>
+            <figure class="dfig"><img src="img/drivaer-errors.png" alt="Per-channel error summary for pressure and wall shear" loading="lazy"><figcaption>Per-channel test error: pressure (Cp) is the easiest target at about 17%; the transverse wall-shear components remain harder.</figcaption></figure>
+          </details>
+        </article>
 
+        <article class="project card">
+          <div class="thumb">
+            <img src="img/heat-field.png" alt="Temperature field for the best stable run" loading="lazy">
+            <div class="fallback">
+              <svg viewBox="0 0 760 170" role="img" aria-label="Agent loop for heat transfer">
+                <g font-family="Inter,Arial,sans-serif" font-size="14" text-anchor="middle" fill="#16202E"><rect x="10" y="40" width="150" height="56" rx="8" fill="#eef2f6"/><text x="85" y="64">Prompt</text><text x="85" y="82">plain language</text><line x1="160" y1="68" x2="203" y2="68" stroke="#5b6b7a" stroke-width="2" marker-end="url(#ah)"/><rect x="207" y="40" width="150" height="56" rx="8" fill="#e3ecf7"/><text x="282" y="64">Agent proposes</text><text x="282" y="82">mesh + time step</text><line x1="357" y1="68" x2="399" y2="68" stroke="#5b6b7a" stroke-width="2" marker-end="url(#ah)"/><rect x="403" y="40" width="150" height="56" rx="8" fill="#eef2f6"/><text x="478" y="64">Solver runs</text><text x="478" y="82">2D heat transfer</text><line x1="553" y1="68" x2="596" y2="68" stroke="#5b6b7a" stroke-width="2" marker-end="url(#ah)"/><rect x="600" y="40" width="150" height="56" rx="8" fill="#fde9dc"/><text x="675" y="64" font-weight="600">Score</text><text x="675" y="82">stability, error, time</text><path d="M675,96 V140 H282 V100" fill="none" stroke="#d9772f" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#ah)"/><text x="478" y="160" fill="#b4561c">try new settings</text></g>
+              </svg>
+            </div>
+          </div>
+          <p class="figcap">Temperature field of the best stable run the agent selected for the accurate case.</p>
+          <h3>LLM Agent for 2D Heat-Transfer Simulation</h3>
+          <p class="meta">Course project · AI Agents for Engineers (24-880) · Spring 2026</p>
+          <div class="tags"><span class="tag">ReAct</span><span class="tag">Qwen2.5-1.5B</span><span class="tag">Finite differences</span></div>
+          <p class="sum">A small-language-model agent that sets up a transient heat-conduction solver from a plain-language prompt and tunes mesh size and time step for stability, error and runtime.</p>
+          <details>
+            <summary>Details</summary>
+            <dl class="imrd">
+              <dt>Problem</dt><dd>Choosing mesh size and time step is trial and error that slows engineers down.</dd>
+              <dt>Approach</dt><dd>A ReAct loop proposes settings, runs the solver, and scores each run; the agent returns the best stable configuration.</dd>
+              <dt>Lesson</dt><dd>Even a small model can automate numerical choices when a scoring loop checks its work, an idea that shaped CFD Forge.</dd>
+              <dt>My role</dt><dd>Designed and built the agent, solver interface and scoring loop.</dd>
+            </dl>
+          </details>
+        </article>
+
+      </div>
     </div>
   </section>
 
-  <!-- RESUME -->
-  <section id="resume">
+  <!-- EXPERIENCE -->
+  <section id="experience">
     <div class="wrap">
-      <div class="sec-head"><span class="num">03</span><h2>Resume</h2></div>
-      <div class="resume-box">
-        <div>
-          <p style="font-family:var(--serif);font-size:1.15rem;margin-bottom:4px">One-page resume</p>
+      <div class="sec-head"><h2>Education &amp; Experience</h2></div>
+      <div class="edu">
+        <div class="card">
+          <h3>Carnegie Mellon University</h3>
+          <p>M.S. Mechanical Engineering (Research) · Expected May 2027</p>
+          <p>GPA 3.98 / 4.00</p>
         </div>
-        <div style="display:flex;gap:10px;flex-wrap:wrap">
-          <a href="Aakash_Oza_Resume.pdf" target="_blank" class="btn btn-primary">Open full screen →</a>
-          <a href="Aakash_Oza_Resume.pdf" download class="btn">Download PDF</a>
+        <div class="card">
+          <h3>Pandit Deendayal Energy University</h3>
+          <p>B.Tech. Mechanical Engineering · 2023</p>
+          <p>CPI 9.18 / 10 · Qualified GATE 2023</p>
         </div>
       </div>
-      <div class="resume-embed">
-        <iframe src="Aakash_Oza_Resume.pdf#view=FitH" title="Aakash Oza one-page resume"></iframe>
+      <h4 class="small">Experience</h4>
+      <ul class="timeline">
+        <li><span class="when">Feb 2026 – now</span><div><h3>Graduate Research Assistant</h3><p class="org">Mechanical and AI Lab, Carnegie Mellon · Advisor: Prof. Amir Barati Farimani</p><p>Neural CFD surrogates, cross-domain pretraining for data-scarce CFD, and physics-checked AI agents for simulation (with Prof. Ryan F. Johnson).</p></div></li>
+        <li><span class="when">Jun 2023 – Aug 2024</span><div><h3>Executive Engineer</h3><p class="org">Honda Motorcycle &amp; Scooter India, Power Train Division</p><p>Led a team of 20+ operators machining engine cylinder heads; used CMM inspection data to trace and eliminate a recurring defect behind ~3,000 rejected parts.</p></div></li>
+        <li><span class="when">Jan – May 2023</span><div><h3>Research Intern</h3><p class="org">Bhabha Atomic Research Centre, Electron Beam Centre</p><p>Thermal–structural FEA to optimize the titanium foil window of a 1 MeV electron accelerator; contributed to work presented at InPAC 2023.</p></div></li>
+      </ul>
+      <h4 class="small" style="margin-top:8px">Teaching</h4>
+      <ul class="timeline">
+        <li><span class="when">Fall 2026</span><div><h3>Grader, AI &amp; ML for Engineers (24-787)</h3><p class="org">Carnegie Mellon University</p></div></li>
+        <li><span class="when">Spring 2026</span><div><h3>Grader, Intro to CAD &amp; CAE Tools (24-688)</h3><p class="org">Carnegie Mellon University</p></div></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- CV -->
+  <section id="cv">
+    <div class="wrap">
+      <div class="sec-head"><h2>CV</h2></div>
+      <div class="cv-box card">
+        <p style="font-family:var(--serif);font-size:1.15rem">Curriculum vitae</p>
+        <div class="links">
+          <a href="Aakash_Oza_CV.pdf" target="_blank" class="btn btn-primary">Open PDF</a>
+          <a href="Aakash_Oza_CV.pdf" download class="btn">Download</a>
+        </div>
       </div>
+      <div class="cv-embed"><iframe src="Aakash_Oza_CV.pdf#view=FitH" title="Aakash Oza CV" loading="lazy"></iframe></div>
     </div>
   </section>
 
   <!-- CONTACT -->
   <section id="contact" style="border-bottom:none">
     <div class="wrap">
-      <div class="sec-head"><span class="num">04</span><h2>Contact</h2></div>
-      <p style="max-width:52ch;margin-bottom:18px">Open to full-time roles in ML for engineering simulation starting May 2027.</p>
+      <div class="sec-head"><h2>Contact</h2></div>
+      <p style="max-width:56ch">I'm applying to PhD programs for Fall 2027 and always happy to talk about scientific machine learning.</p>
       <div class="contact-links">
-        <a href="mailto:asoza@andrew.cmu.edu">asoza@andrew.cmu.edu</a>
-        <a href="https://www.linkedin.com/in/aakashoza31">linkedin.com/in/aakashoza31</a>
-        <a href="https://github.com/aakashoza31" target="_blank">github.com/aakashoza31</a>
+        <a class="btn" href="mailto:asoza@andrew.cmu.edu">asoza@andrew.cmu.edu</a>
+        <a class="btn" href="https://www.linkedin.com/in/aakashoza31" target="_blank">LinkedIn</a>
+        <a class="btn" href="https://github.com/aakashoza31" target="_blank">GitHub</a>
       </div>
     </div>
   </section>
 
 </main>
 
-<footer>
-  <div class="wrap">© <span id="yr"></span> Aakash Oza · Portfolio in progress</div>
-</footer>
+<footer><div class="wrap">© <span id="yr"></span> Aakash Oza · Pittsburgh, PA</div></footer>
 
 <script>
   document.getElementById('yr').textContent = new Date().getFullYear();
-  const btn=document.querySelector('.menu-btn'), menu=document.getElementById('menu');
-  btn.addEventListener('click',()=>{const o=menu.classList.toggle('open');btn.setAttribute('aria-expanded',o)});
-  menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{menu.classList.remove('open');btn.setAttribute('aria-expanded','false')}));
+  // menu
+  const mb=document.querySelector('.menu-btn'), menu=document.getElementById('menu');
+  mb.addEventListener('click',()=>{const o=menu.classList.toggle('open');mb.setAttribute('aria-expanded',o)});
+  menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{menu.classList.remove('open');mb.setAttribute('aria-expanded','false')}));
+  // theme
+  const root=document.documentElement, tb=document.getElementById('theme');
+  try{const t=localStorage.getItem('theme'); if(t) root.dataset.theme=t;}catch(e){}
+  tb.addEventListener('click',()=>{
+    const dark = root.dataset.theme ? root.dataset.theme==='dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+    root.dataset.theme = dark ? 'light' : 'dark';
+    try{localStorage.setItem('theme',root.dataset.theme)}catch(e){}
+  });
+  // image fallbacks: show diagram when a figure file isn't uploaded yet
+  document.querySelectorAll('.thumb img').forEach(img=>{
+    const fail=()=>img.closest('.thumb').classList.add('noimg');
+    if(img.complete && img.naturalWidth===0) fail();
+    img.addEventListener('error',fail);
+  });
+  // bibtex toggles
+  document.querySelectorAll('[data-bib]').forEach(b=>b.addEventListener('click',()=>document.getElementById(b.dataset.bib).classList.toggle('show')));
 </script>
 </body>
 </html>
